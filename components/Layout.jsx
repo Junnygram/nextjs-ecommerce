@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 function Layout({ title, children }) {
   const year = new Date().getFullYear();
@@ -19,7 +20,9 @@ function Layout({ title, children }) {
             </Link>
             <div className="flex">
               <Link href="/cart">
-                <div className="p-2">Cart</div>
+                <div className="p-2 mt-1 ">
+                  <AiOutlineShoppingCart size="20px" />
+                </div>
               </Link>
               <Link href="/login">
                 <div className="p-2">Login</div>
