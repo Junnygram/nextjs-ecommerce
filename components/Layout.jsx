@@ -1,10 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import React from 'react';
+import React, { useContext } from 'react';
+import { Store } from '../utils/Store';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 function Layout({ title, children }) {
   const year = new Date().getFullYear();
+  const { state } = useContext(Store);
+  const { cart } = state;
   return (
     <>
       <Head>
@@ -20,8 +23,13 @@ function Layout({ title, children }) {
             </Link>
             <div className="flex">
               <Link href="/cart">
-                <div className="p-2 mt-1 ">
+                <div className="p-2 mt-1 flex bg-red-100 rounded-lg">
                   <AiOutlineShoppingCart size="20px" />
+                  {cart.cartItems.length > 0 && (
+                    <span className="ml-1  rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                    </span>
+                  )}
                 </div>
               </Link>
               <Link href="/login">
