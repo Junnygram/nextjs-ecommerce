@@ -1,13 +1,18 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Store } from '../utils/Store';
+import { FaRegUser } from 'react-icons/fa';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 function Layout({ title, children }) {
   const year = new Date().getFullYear();
   const { state } = useContext(Store);
   const { cart } = state;
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+  useEffect(() => {
+    setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
+  }, [cart.cartItems]);
   return (
     <>
       <Head>
@@ -19,27 +24,33 @@ function Layout({ title, children }) {
         <header>
           <nav className="flex h-12 items-center px-4 justify-between shadow-md">
             <Link href="/">
-              <div className="text-lg font-bold">Willey</div>
+              <span className="text-3xl font-press-start ">Willey</span>
             </Link>
             <div className="flex">
               <Link href="/cart">
-                <div className="p-2 mt-1 flex bg-red-100 rounded-lg">
+                <span className="p-2  flex bg-red-100 rounded-lg">
                   <AiOutlineShoppingCart size="20px" />
-                  {cart.cartItems.length > 0 && (
+                  {cartItemsCount > 0 && (
                     <span className="ml-1  rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
-                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                      {cartItemsCount}
                     </span>
                   )}
-                </div>
+                </span>
               </Link>
-              <Link href="/login">
-                <div className="p-2">Login</div>
+              {/* <Link href="/login">
+                <div className="p-2">Login </div>
+              </Link> */}
+              <Link href="/login" className="flex pt-2 pl-2">
+                {/* <div className=" text-sm ">Login</div> */}
+                <div className="pt-[2px]">
+                  <FaRegUser />
+                </div>
               </Link>
             </div>
           </nav>
         </header>
         <main className="container m-auto mt-4 px-4">{children}</main>
-        <footer className="flex h-10 justify-center items-center shadow-inner">
+        <footer className="flex h-10 justify-center items-center shadow-inner font-press-start">
           <p>Copyright © {year} Willey</p>
         </footer>
       </div>

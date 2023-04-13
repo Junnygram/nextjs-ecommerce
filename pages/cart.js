@@ -6,8 +6,9 @@ import { CiCircleRemove } from 'react-icons/ci';
 import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
-export default function CartScreen() {
+function CartScreen() {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const {
@@ -36,7 +37,7 @@ export default function CartScreen() {
             <table className="min-w-full ">
               <thead className="border-b">
                 <tr>
-                  <th className="p-5 text-left">Item</th>
+                  <th className="p-5 text-left ">Item</th>
                   <th className="p-5 text-right">Quantity</th>
                   <th className="p-5 text-right">Price</th>
                   <th className="p-5">Action</th>
@@ -47,13 +48,13 @@ export default function CartScreen() {
                   <tr key={item.slug} className="border-b">
                     <td>
                       <Link href={`/product/${item.slug}`}>
-                        <div className="flex items-center">
-                          <Image
+                        <div className="flex items-center ">
+                          <img
                             src={item.image}
                             alt={item.name}
                             width={50}
                             height={50}
-                          ></Image>
+                          />
                           &nbsp;
                           {item.name}
                         </div>
@@ -84,7 +85,7 @@ export default function CartScreen() {
               </tbody>
             </table>
           </div>
-          <div className="card p-5">
+          <div className="card p-5 mt-2">
             <ul>
               <li>
                 <div className="pb-3 text-xl">
@@ -94,7 +95,7 @@ export default function CartScreen() {
               </li>
               <li>
                 <button
-                  onClick={() => router.push('/shipping')}
+                  onClick={() => router.push('login?redirect=/shipping')}
                   className="primary-button w-full"
                 >
                   Check Out
@@ -107,3 +108,5 @@ export default function CartScreen() {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
