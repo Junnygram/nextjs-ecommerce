@@ -7,6 +7,7 @@ import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 
 function CartScreen() {
   const router = useRouter();
@@ -61,7 +62,17 @@ function CartScreen() {
                       </Link>
                     </td>
                     <td className="p-5 text-right">
-                      <select
+                      <div className="flex justify-between">
+                        <button
+                          onClick={() =>
+                            updateCartHandler(item, item.quantity - 1)
+                          }
+                          disabled={item.quantity === 1}
+                          className=" mx-auto my-auto "
+                        >
+                          <AiOutlineMinusCircle />
+                        </button>
+                        {/* <select
                         value={item.quantity}
                         onChange={(e) =>
                           updateCartHandler(item, e.target.value)
@@ -72,7 +83,18 @@ function CartScreen() {
                             {x + 1}
                           </option>
                         ))}
-                      </select>
+                      </select> */}
+                        <span className="">{item.quantity}</span>{' '}
+                        <button
+                          onClick={() =>
+                            updateCartHandler(item, item.quantity + 1)
+                          }
+                          disabled={item.quantity === item.countInStock}
+                          className="mx-auto my-auto"
+                        >
+                          <AiOutlinePlusCircle />
+                        </button>
+                      </div>
                     </td>
                     <td className="p-5 text-right"> ₦{item.price}</td>
                     <td className="p-5 text-center">
