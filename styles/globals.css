@@ -17,7 +17,7 @@ a {
 }
 
 .card {
-  @apply mb-5  block   rounded-lg border border-gray-200  shadow-md;
+  @apply mb-5 block   rounded-lg border border-gray-200  shadow-md;
 }
 
 .primary-button {
@@ -28,4 +28,10 @@ input,
 select,
 textarea {
   @apply rounded border p-2  outline-none ring-indigo-300  focus:ring;
+}
+a {
+  @apply text-blue-600 hover:text-blue-800;
+}
+.dropdown-link {
+  @apply flex p-2 hover:bg-gray-200;
 }
