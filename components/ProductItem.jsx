@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-function ProductItem({ product }) {
+function ProductItem({ product, addToCartHandler }) {
   return (
     <div className="card">
       <Link href={`/product/${product.slug}`}>
@@ -18,7 +18,12 @@ function ProductItem({ product }) {
         </Link>
         <p className="mb-2 lg:text-lg text-xs">{product.brand}</p>
         <p> ₦{product.price}</p>
-        <button className="primary-button lg:text-lg text-xs" type="button">
+
+        <button
+          className="primary-button lg:text-lg text-xs"
+          type="button"
+          onClick={() => addToCartHandler(product)}
+        >
           Add to cart
         </button>
       </div>
